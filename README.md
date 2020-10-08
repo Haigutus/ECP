@@ -5,21 +5,21 @@ Python implementation of ECP* SOAP MADES API
 
 # Installation
 
-    pip install entsoe.ecp-api
+    pip install ecp-api
 
 or
 
-    pip install --user entsoe.ecp-api
+    pip install --user ecp-api
 
 or 
 
-    python -m pip install --user entsoe.ecp-api
+    python -m pip install --user ecp-api
 
 
 # Usage
 
 ### Initialise
-    import entsoe.ecp-api as ECP
+    import ecp-api as ECP
 
     service = ECP.create_client("https://ecp.elering.sise")
 

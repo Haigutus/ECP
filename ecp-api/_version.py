@@ -43,7 +43,7 @@ def get_config():
     cfg.style = "pep440"
     cfg.tag_prefix = ""
     cfg.parentdir_prefix = "ECP"
-    cfg.versionfile_source = "entsoe.ecp-api/_version.py"
+    cfg.versionfile_source = "ecp-api/_version.py"
     cfg.verbose = False
     return cfg
 
