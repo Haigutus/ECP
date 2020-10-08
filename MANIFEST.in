@@ -1,2 +1,2 @@
 include versioneer.py
-include entsoe.ecp-api/_version.py
+include ecp-api/_version.py
