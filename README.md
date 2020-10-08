@@ -1,23 +1,25 @@
 # ECP
-Python implementation of ECP SOAP MADES API (ENTSO-E Data Exchange Software - https://www.entsoe.eu/data/ECP/) 
+Python implementation of ECP* SOAP MADES API
+
+**ENTSO-E Energy Communication Platform (ECP) Software - https://www.entsoe.eu/data/ECP/*
 
 # Installation
 
-    pip install ECP
+    pip install entsoe.ecp-api
 
 or
 
-    pip install --user ECP
+    pip install --user entsoe.ecp-api
 
 or 
 
-    python -m pip install --user ECP
+    python -m pip install --user entsoe.ecp-api
 
 
 # Usage
 
 ### Initialise
-    import ECP
+    import entsoe.ecp-api as ECP
 
     service = ECP.create_client("https://ecp.elering.sise")
 
