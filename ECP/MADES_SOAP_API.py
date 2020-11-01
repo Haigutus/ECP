@@ -1,6 +1,6 @@
 #-------------------------------------------------------------------------------
-# Name:        ECP_client
-# Purpose:
+# Name:        MADES_SOAP_API
+# Purpose:     Implementation of ECP MADES API
 #
 # Author:      kristjan.vilgo
 #

@@ -19,7 +19,7 @@ or
 # Usage
 
 ### Initialise
-    import ecp-api as ECP
+    import ECP
 
     service = ECP.create_client("https://ecp.elering.sise")
 

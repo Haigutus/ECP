@@ -8,7 +8,7 @@ setup(
     name='ecp-api',
     version=versioneer.get_version().split("+")[0],
     cmdclass=versioneer.get_cmdclass(),
-    packages=['ecp-api'],
+    packages=['ECP'],
     long_description=long_description,
     long_description_content_type="text/markdown",
     url='https://github.com/Haigutus/ECP',
