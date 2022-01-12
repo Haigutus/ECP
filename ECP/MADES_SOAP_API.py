@@ -8,12 +8,12 @@
 # Copyright:   (c) kristjan.vilgo 2020
 # Licence:     GPL2
 #-------------------------------------------------------------------------------
-from __future__ import print_function
-
 from requests import Session
 from requests.auth import HTTPBasicAuth
 from zeep import Client
 from zeep.transports import Transport
+from zeep.plugins import HistoryPlugin
+from lxml import etree
 
 import urllib3
 urllib3.disable_warnings()
@@ -27,12 +27,19 @@ class create_client():
 
         wsdl = '{}/ECP_MODULE/services/ECPEndpointService.wsdl'.format(server)
 
-        session        = Session()
+        session = Session()
         session.verify = False
-        session.auth   = HTTPBasicAuth(username, password)
+        session.auth = HTTPBasicAuth(username, password)
+        session.get(server)  # Preemptive auth, needed for keycloak)
 
-        transport = Transport(session = session)
-        client    = Client(wsdl, transport = transport)
+        transport = Transport(session=session)
+        self.history = HistoryPlugin()
+        self.debug = debug
+
+        if debug:
+            client = Client(wsdl, transport=transport, plugins=[self.history])
+        else:
+            client = Client(wsdl, transport=transport)
 
         client.debug = debug
 
@@ -40,6 +47,30 @@ class create_client():
             '{http://ecp.entso-e.eu/}ECPEndpointSOAP12',
             '{}/ECP_MODULE/services/ECPEndpointService.wsdl'.format(server))
 
+    def _print_last_message_exchange(self):
+        """Prints out last sent and received SOAP messages"""
+
+        if not self.debug:
+            print("WARNING - debug mode must be enabled for function _print_last_message_exchange to work")
+            return
+
+        messages = {"SENT":     self.history.last_sent,
+                    "RECEIVED": self.history.last_received}
+        print("-" * 50)
+
+        for message in messages:
+
+            print(f"### {message} HTTP HEADER ###")
+            print('\n' * 1)
+            print(messages[message]["http_headers"])
+            print('\n' * 1)
+            print(f"### {message} HTTP ENVELOPE START ###")
+            print('\n' * 1)
+            print(etree.tostring(messages[message]["envelope"], pretty_print=True).decode())
+            print(f"### {message} HTTP ENVELOPE END ###")
+            print('\n' * 1)
+
+        print("-" * 50)
 
     def connectivity_test(self, reciver_EIC, business_type):
         """ConnectivityTest(receiverCode: xsd:string, businessType: xsd:string) -> messageID: xsd:string"""
@@ -89,7 +120,7 @@ if __name__ == '__main__':
     #username = input("UserName")
     #password = input("PassWord")
 
-    service = create_client(server)#, username, password)
+    service = create_client(server, debug=True)#, username, password)
 
     # Send message example
 
