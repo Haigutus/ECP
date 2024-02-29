@@ -10,7 +10,7 @@
 #-------------------------------------------------------------------------------
 from requests import Session
 from requests.auth import HTTPBasicAuth
-from zeep import Client
+from zeep import Client as SOAPClient
 from zeep.transports import Transport
 from zeep.plugins import HistoryPlugin
 from lxml import etree
@@ -169,7 +169,7 @@ if __name__ == '__main__':
     username = input("UserName")
     password = input("PassWord")
 
-    service = create_client(server, debug=True, username, password)
+    service = create_client(server, username, password, debug=True)
 
     # Send message example
 
