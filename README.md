@@ -21,20 +21,20 @@ or
 ### Initialise
     import ECP
 
-    service = ECP.create_client("https://ecp.elering.sise")
+    client = ECP.Client("https://ecp.elering.sise")
 
 ### Send message
     with open("message.xml", "rb") as loaded_file:
-        message_ID = service.send_message("10V000000000011Q", "RIMD", loaded_file.read())
+        message_ID = client.send_message("10V000000000011Q", "RIMD", loaded_file.read())
 
 ### Check message status
-    status = service.check_message_status(message_ID)
+    status = client.check_message_status(message_ID)
 
 ### Retrieve message
-    message = service.receive_message()
+    message = client.receive_message()
     
 ### Confirm retrieval of message
-    service.confirm_received_message(message.receivedMessage.messageID)
+    client.confirm_received_message(message.receivedMessage.messageID)
     
 ### Save message on drive
 *in case of excel use .xlsx and in case of PDF use .pdf and etc*
